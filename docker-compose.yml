@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  mongodb:
+    container_name: mongodb_cont
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - type: bind
+        source: ./data/mongodb
+        target: /data/db
+
+  cassandra:
+    container_name: cassandra_cont
+    image: cassandra:lastest
+    restart: always
+    ports:
+      - "7000:7000"
+      - "7001:7001"
+      - "7199:7199"
+      - "9042:9042"
+      - "9160:9160"
+    volumes:
+      - type: bind
+        source: ./data/cassandra
+        target: /var/lib/cassandra
